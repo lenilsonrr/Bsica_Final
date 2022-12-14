@@ -281,6 +281,21 @@ public class Partida {
 		System.out.println(jogador1.getNome() + " Pontos: " + jogador1.getPontos() + " \n" + jogador2.getNome()
 				+ " Pontos: " + jogador2.getPontos());
 	}
+	
+	public void regraAsNaoSaiAntesDoSete(Jogador j, int n) {
+		while (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
+				&& j.getCartasJogador().get(n).getFaces() == "As" && j.getCartasJogador().size() > 0) {
+			System.out.println("\n\n******");
+			System.out.println("essa nao*** ESTAMOS AQUI **\nEscolha outra: ");
+			System.out.print("\n" + j);
+			System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+			n = sc.nextInt();
+			if (j.getNome() == jogador1.getNome()) {
+				setpJ1(n);
+			}
+		}
+
+	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);

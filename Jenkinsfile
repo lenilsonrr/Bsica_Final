@@ -12,7 +12,7 @@ tools {
         }
         stage('Build') {
             steps {
-                dir("C:/Users/LENILSON PC/OneDrive/Documentos/Estudos_EAD_Udemy/Eclipse/Bsica_Final") {
+                dir("C:/Users/LENILSON PC/OneDrive/Documentos/Estudos_EAD_Udemy/Eclipse/Bsica_Final/src/main/java/br/com/unisales/BiscaX.Programa") {
                 bat 'mvn -B -DskipTests clean package'
                 }
             }

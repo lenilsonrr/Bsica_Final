@@ -1,4 +1,4 @@
- package br.com.unisales.BiscaX;
+package br.com.unisales.BiscaX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,8 @@ public class Partida {
 	private Carta cartaNipe;
 	private Jogador jogador1;
 	private Jogador jogador2;
+	private int pJ1 = 0;
+	private int pJ2 = 0;
 
 	private Scanner sc = new Scanner(System.in);
 
@@ -46,6 +48,24 @@ public class Partida {
 		this.cartaNipe = cartaNipe;
 	}
 
+	// adicionando metodos
+
+	public int getpJ1() {
+		return pJ1;
+	}
+
+	public void setpJ1(int pJ1) {
+		this.pJ1 = pJ1;
+	}
+
+	public int getpJ2() {
+		return pJ2;
+	}
+
+	public void setpJ2(int pJ2) {
+		this.pJ2 = pJ2;
+	}
+	
 	// Adicinonando jogadores
 
 	public void addJogadores() {
@@ -83,7 +103,6 @@ public class Partida {
 		}
 
 	}
-	
 
 	public void regraMesmoNipeSemSerTrunfo(Jogador j1, int n1, Jogador j2, int n2) {
 
@@ -92,13 +111,13 @@ public class Partida {
 				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe()) {
 			if (j1.getCartasJogador().get(n1).GetPeso() > j2.getCartasJogador().get(n2).GetPeso()) {
 				j1.somarPontos(j1.getCartasJogador().get(n1).getValor() + j2.getCartasJogador().get(n2).getValor());
-				System.out.println("Vitoria jog1 agora e sua vez @@@@@ cartas mesmo nipe sem ser trunfo\n");
+				System.out.println("Vitoria jog1 agora é sua vez @@@@@ cartas do mesmo naipe sem ser trunfo\n");
 				j1.setVez("vez");
 				j2.setVez(null);
 
 			} else {
 				j2.somarPontos(j1.getCartasJogador().get(n1).getValor() + j2.getCartasJogador().get(n2).getValor());
-				System.out.println("Vitoria jog2 agora e sua vez @@@@@ cartas mesmo nipe sem ser trunfo\n");
+				System.out.println("Vitoria jog2 agora é sua vez @@@@@ cartas do mesmo naipe sem ser trunfo\n");
 				j2.setVez("vez");
 				j1.setVez(null);
 			}
@@ -111,7 +130,7 @@ public class Partida {
 				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe()) {
 
 			j1.somarPontos(j1.getCartasJogador().get(n1).getValor() + j2.getCartasJogador().get(n2).getValor());
-			System.out.println("Vitoria jog1 agora e sua vez ***** Cartas trunfo e outro nao\n");
+			System.out.println("Vitoria jog1 agora é sua vez ***** Cartas trunfo e outro não\n");
 			j1.setVez("vez");
 			j2.setVez(null);
 
@@ -119,7 +138,7 @@ public class Partida {
 		if (j2.getCartasJogador().get(n2).getNipe().equals(cartaNipe.getNipe())
 				&& j1.getCartasJogador().get(n1).getNipe() != cartaNipe.getNipe()) {
 			j2.somarPontos(j1.getCartasJogador().get(n1).getValor() + j2.getCartasJogador().get(n2).getValor());
-			System.out.println("Vitoria jog2 agora e sua vez ******** Cartas trunfo e outro nao\n");
+			System.out.println("Vitoria jog2 agora é sua vez ******** Cartas trunfo e outro não\n");
 			j2.setVez("vez");
 			j1.setVez(null);
 		}
@@ -132,12 +151,12 @@ public class Partida {
 				&& j2.getCartasJogador().get(n2).getNipe().equals(cartaNipe.getNipe())) {
 			if (j1.getCartasJogador().get(n1).GetPeso() > j2.getCartasJogador().get(n2).GetPeso()) {
 				j1.somarPontos(j1.getCartasJogador().get(n1).getValor() + j2.getCartasJogador().get(n2).getValor());
-				System.out.println("Vitoria jog1 agora e sua vez  %%%%%%% cartas mesmo nipe trunfo\n");
+				System.out.println("Vitoria jog1 agora é sua vez  %%%%%%% cartas mesmo naipe trunfo\n");
 				j1.setVez("vez");
 				j2.setVez(null);
 			} else {
 				j2.somarPontos(j1.getCartasJogador().get(n1).getValor() + j2.getCartasJogador().get(n2).getValor());
-				System.out.println("Vitoria jog2 agora e sua vez %%%%%%%% cartas mesmo nipe trunfo\n");
+				System.out.println("Vitoria jog2 agora é sua vez %%%%%%%% cartas mesmo naipe trunfo\n");
 				j2.setVez("vez");
 				j1.setVez(null);
 			}
@@ -151,7 +170,7 @@ public class Partida {
 				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe()
 				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe()) {
 			j1.somarPontos(j1.getCartasJogador().get(n1).getValor() + j2.getCartasJogador().get(n2).getValor());
-			System.out.println("Vitoria continua a sua vez  ######## Cartas nipes diferentes\n");
+			System.out.println("Vitoria continua a sua vez  ######## Cartas naipes diferentes\n");
 			j1.setVez("vez");
 			j2.setVez(null);
 		}
@@ -176,18 +195,17 @@ public class Partida {
 
 		for (int i = 0; i < 17; i++) {
 
-			
-			System.out.println("Rodada " + (i + 1) + "ª");
+			System.out.println((i + 1) + "ª Rodada ");
 			if (jogador1.getVez() == "vez") {
 				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
-				
-				
-				System.out.print(getJogador2());
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
 
-				System.out.println(getJogador1().getCartasJogador().get(pJ1)+"    X \n"+getJogador2().getCartasJogador().get(pJ2));
-				
+				System.out.print(getJogador2());
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
+
+				System.out.println(getJogador1().getCartasJogador().get(pJ1) + "    X \n"
+						+ getJogador2().getCartasJogador().get(pJ2));
+
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
@@ -195,13 +213,14 @@ public class Partida {
 			} else {
 				System.out.print("\n" + getJogador2());
 
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
 
 				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
 				System.out.println("Mão");
-				System.out.println(getJogador2().getCartasJogador().get(pJ2)+"    X \n"+getJogador1().getCartasJogador().get(pJ1));
-				
+				System.out.println(getJogador2().getCartasJogador().get(pJ2) + "    X \n"
+						+ getJogador1().getCartasJogador().get(pJ1));
+
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
@@ -218,17 +237,18 @@ public class Partida {
 		}
 
 		for (int i = 0; i < 3; i++) {
-			System.out.println("Rodada " + (i + 18) + "ª");
-			
+			System.out.println((i + 18) + "ª Rodada");
+
 			if (jogador1.getVez() == "vez") {
 				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
 
 				System.out.print(getJogador2());
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
 				System.out.println("Mão");
-				System.out.println(getJogador1().getCartasJogador().get(pJ1)+"    X \n"+getJogador2().getCartasJogador().get(pJ2));
-				
+				System.out.println(getJogador1().getCartasJogador().get(pJ1) + "    X \n"
+						+ getJogador2().getCartasJogador().get(pJ2));
+
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
@@ -237,14 +257,15 @@ public class Partida {
 			} else {
 				System.out.print("\n" + getJogador2());
 
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
 
 				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
 
 				System.out.println("Mão");
-				System.out.println(getJogador2().getCartasJogador().get(pJ2)+"    X \n"+getJogador1().getCartasJogador().get(pJ1));
-				
+				System.out.println(getJogador2().getCartasJogador().get(pJ2) + "    X \n"
+						+ getJogador1().getCartasJogador().get(pJ1));
+
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
@@ -270,7 +291,7 @@ public class Partida {
 	@Override
 	public String toString() {
 
-		return jogador1 + "\n" + jogador2 + "" + "\ntrunfo: " + cartaNipe + "" + "Nipe: " + cartaNipe.getNipe() + "\n";
+		return jogador1 + "\n" + jogador2 + "" + "\ntrunfo: " + cartaNipe + "" + "Naipe: " + cartaNipe.getNipe() + "\n";
 	}
 
 }

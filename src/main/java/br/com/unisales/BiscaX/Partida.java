@@ -296,6 +296,13 @@ public class Partida {
 		}
 
 	}
+	
+	public void regraSeteDeRoda(Jogador j, int n) {
+		if (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
+				&& j.getCartasJogador().get(n).getFaces() == "7") {
+			System.out.println("Sete na primeira rodada ja é um ponto");
+		}
+	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);

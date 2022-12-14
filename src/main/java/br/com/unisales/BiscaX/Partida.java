@@ -303,6 +303,26 @@ public class Partida {
 			System.out.println("Sete na primeira rodada ja é um ponto");
 		}
 	}
+	
+	public void regraSeteNaoPodeSairDeFundoSoNaUltimaRodada(Jogador j, int n) {
+		while (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
+				&& j.getCartasJogador().get(n).getFaces() == "7") {
+			
+				System.out.println("\n\n******");
+				System.out.println("Essa Carta no pode ser solta de fundo só pode nessa condição na ultima rodada");
+				System.out.println();
+				System.out.println("essa nao\nEscolha outra: ");
+				System.out.print("\n" + j);
+				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				n = sc.nextInt() - 1;
+				if (j.getNome() == jogador1.getNome()) {
+
+					System.out.print(jogador1.getNome());
+					setpJ1(n);
+				}
+				
+		}
+	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);

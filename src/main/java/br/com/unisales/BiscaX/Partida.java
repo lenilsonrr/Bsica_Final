@@ -346,6 +346,17 @@ public class Partida {
 		}
 		return false;
 	}
+	
+	public boolean temAsNasCartasOponete(Jogador j) {
+
+		for (int i = 0; i < j.getCartasJogador().size(); i++) {
+			if (jogador1.getCartasJogador().get(i).getNipe() == cartaNipe.getNipe()
+					&& jogador1.getCartasJogador().get(i).getFaces() == "As") {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import projetoBisca.ultimo.JogadorTeste;
-
 public class Partida {
 
 	private Baralho baralho;

@@ -177,7 +177,7 @@ public class Partida {
 					setpJ2(n);
 				}
 			}
-			if (temSeteNasCartasOponete(j2) == true && j.getCartasJogador().size() > 1) {
+			if (temSeteNasCartasOponete(j2) == true && j.getCartasJogador().size() > 0) {
 				System.out.println("\n\n************");
 				System.out.println("essa nao******* ESTAMOS AQUI ******\nEscolha outra: ");
 				System.out.print("\n" + j);

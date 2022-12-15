@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import projetoBisca.ultimo.JogadorTeste;
+
 public class Partida {
 
 	private Baralho baralho;
@@ -105,25 +107,91 @@ public class Partida {
 
 	public void regraSeteDeRoda(Jogador j, int n, Jogador j2, int n2) {
 		if (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
-				&& j.getCartasJogador().get(n).getFaces() == "7" 
-				&& j2.getCartasJogador().get(n2).getFaces() != "As"
-				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe() && baralho.getCartas().size()==34) {
+				&& j.getCartasJogador().get(n).getFaces() == "7" && j2.getCartasJogador().get(n2).getFaces() != "As"
+				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe() && baralho.getCartas().size() == 34) {
 			System.out.println("Sete na primeira rodada ja é um ponto");
 		}
 	}
+	
+	public boolean temAsNoBaralho() {
 
-	public void regraAsNaoSaiAntesDoSete(Jogador j, int n) {
+		for (int i = 0; i < baralho.getCartas().size(); i++) {
+			if (baralho.getCartas().get(i).getNipe() == cartaNipe.getNipe()
+					&& baralho.getCartas().get(i).getFaces() == "As") {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean temSeteNoBaralho() {
+
+		for (int i = 0; i < baralho.getCartas().size(); i++) {
+			if (baralho.getCartas().get(i).getNipe() == cartaNipe.getNipe()
+					&& baralho.getCartas().get(i).getFaces() == "7") {
+				System.out.println(i + " " + baralho.getCartas().get(i));
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean temAsNasCartasOponete(Jogador j) {
+
+		for (int i = 0; i < j.getCartasJogador().size(); i++) {
+			if (jogador1.getCartasJogador().get(i).getNipe() == cartaNipe.getNipe()
+					&& jogador1.getCartasJogador().get(i).getFaces() == "As") {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean temSeteNasCartasOponete(Jogador j) {
+
+		for (int i = 0; i < j.getCartasJogador().size(); i++) {
+			if (j.getCartasJogador().get(i).getNipe() == cartaNipe.getNipe()
+					&& j.getCartasJogador().get(i).getFaces() == "7") {
+				System.out.println(i + " " + j.getCartasJogador().get(i));
+				return true;
+			}
+
+		}
+		return false;
+	}
+	
+
+	public void regraAsNaoSaiAntesDoSete(Jogador j, int n, Jogador j2) {
+
 		while (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
-				&& j.getCartasJogador().get(n).getFaces() == "As" && j.getCartasJogador().size() > 0) {
-			System.out.println("\n\n******");
-			System.out.println("essa nao*** ESTAMOS AQUI **\nEscolha outra: ");
-			System.out.print("\n" + j);
-			System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
-			n = sc.nextInt();
-			if (j.getNome() == jogador1.getNome()) {
-				setpJ1(n);
-			}else {
-				
+				&& j.getCartasJogador().get(n).getFaces() == "As") {
+			if (temSeteNoBaralho() == true) {
+				System.out.println("\n\n************");
+				System.out.println("essa nao******* ESTAMOS AQUI ******\nEscolha outra: ");
+				System.out.print("\n" + j);
+				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				n = sc.nextInt() - 1;
+				if (j.getNome() == jogador1.getNome()) {
+					setpJ1(n);
+				}
+				if (j.getNome() == jogador2.getNome()) {
+
+					setpJ2(n);
+				}
+			}
+			if (temSeteNasCartasOponete(j2) == true && j.getCartasJogador().size() > 1) {
+				System.out.println("\n\n************");
+				System.out.println("essa nao******* ESTAMOS AQUI ******\nEscolha outra: ");
+				System.out.print("\n" + j);
+				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				n = sc.nextInt() - 1;
+				if (j.getNome() == jogador1.getNome()) {
+					setpJ1(n);
+				}
+				if (j.getNome() == jogador2.getNome()) {
+
+					setpJ2(n);
+				}
 			}
 		}
 
@@ -233,43 +301,51 @@ public class Partida {
 	}
 
 	public void rodadas() {
-
-		for (int i = 0; i < 17; i++) {
-
-			System.out.println((i + 1) + "ª Rodada ");
+		int cont = 0;
+		while (baralho.getCartas().size() > 0) {
+			cont++;
+			System.out.println("Rodada " + cont + "ª");
 			if (jogador1.getVez() == "vez") {
-				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
-
-				System.out.print(getJogador2());
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
-
-				System.out.println(getJogador1().getCartasJogador().get(pJ1) + "    X \n"
-						+ getJogador2().getCartasJogador().get(pJ2));
-
+				System.out.print("\n" + getJogador1() + "\n" + getJogador2());
+				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("Qual Carta Jog1: ");
+				pJ1 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador1, getpJ1(), jogador2);
+				System.out.println("Qual Carta Jog2: ");
+				pJ2 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador2, getpJ2(), jogador1);
+				System.out.println();
+				regraReles(jogador1, pJ1, jogador2, pJ2);
 				regraSeteDeRoda(jogador1, pJ1, jogador2, pJ2);
+
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasNipesDiferentes(jogador1, pJ1, jogador2, pJ2);
+
 			} else {
-				System.out.print("\n" + getJogador2());
 
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
-
-				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
-				System.out.println("Mão");
-				System.out.println(getJogador2().getCartasJogador().get(pJ2) + "    X \n"
-						+ getJogador1().getCartasJogador().get(pJ1));
+				System.out.print("\n" + getJogador2() + "\n" + getJogador1());
+				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("Qual Carta Jog2: ");
+				pJ2 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador2, getpJ2(), jogador1);
+				System.out.println("Qual Carta Jog1: ");
+				pJ1 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador1, getpJ1(), jogador2);
+				regraReles(jogador2, pJ2, jogador1, pJ1);
+				System.out.println();
 
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasNipesDiferentes(jogador2, pJ2, jogador1, pJ1);
+
 			}
 
-			regraReles(jogador1, pJ1, jogador2, pJ2);
+			System.out.println("Mão");
+			System.out.println(
+					getJogador2().getCartasJogador().get(pJ2) + "    X \n" + getJogador1().getCartasJogador().get(pJ1));
 
 			jogador1.getCartasJogador().remove(pJ1);
 			jogador1.getCartasJogador().add(baralho.comprarUmaCarta());
@@ -277,44 +353,51 @@ public class Partida {
 			jogador2.getCartasJogador().add(baralho.comprarUmaCarta());
 			System.out.println();
 		}
-
-		for (int i = 0; i < 3; i++) {
-			System.out.println((i + 18) + "ª Rodada");
-
+		cont = 17;
+		while (jogador1.getCartasJogador().size() > 0) {
+			cont++;
+			System.out.println("Rodada " + cont + "ª");
 			if (jogador1.getVez() == "vez") {
-				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
+				System.out.print("\n" + getJogador1() + "\n" + getJogador2());
+				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("Qual Carta Jog1: ");
+				pJ1 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador1, getpJ1(), jogador2);
+				System.out.println("Qual Carta Jog2: ");
+				pJ2 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador2, getpJ2(), jogador1);
+				System.out.println();
 
-				System.out.print(getJogador2());
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
-				System.out.println("Mão");
-				System.out.println(getJogador1().getCartasJogador().get(pJ1) + "    X \n"
-						+ getJogador2().getCartasJogador().get(pJ2));
-
+				regraReles(jogador1, pJ1, jogador2, pJ2);
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasNipesDiferentes(jogador1, pJ1, jogador2, pJ2);
 
 			} else {
-				System.out.print("\n" + getJogador2());
 
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
-
-				System.out.print("\n" + getJogador1());
-				System.out.println("\nTrunfo: " + cartaNipe + "Naipe: " + cartaNipe.getNipe() + "\n");
-
-				System.out.println("Mão");
-				System.out.println(getJogador2().getCartasJogador().get(pJ2) + "    X \n"
-						+ getJogador1().getCartasJogador().get(pJ1));
+				System.out.print("\n" + getJogador2() + "\n" + getJogador1());
+				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+				System.out.println("Qual Carta Jog2: ");
+				pJ2 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador2, getpJ2(), jogador1);
+				System.out.println("Qual Carta Jog1: ");
+				pJ1 = sc.nextInt() - 1;
+				regraAsNaoSaiAntesDoSete(jogador1, getpJ1(), jogador2);
+				regraReles(jogador2, pJ2, jogador1, pJ1);
+				System.out.println();
 
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasNipesDiferentes(jogador2, pJ2, jogador1, pJ1);
+
 			}
 
-			regraReles(jogador1, pJ1, jogador2, pJ2);
+			System.out.println("Mão");
+			System.out.println(
+					getJogador2().getCartasJogador().get(pJ2) + "    X \n" + getJogador1().getCartasJogador().get(pJ1));
+			System.out.println(jogador1.getCartasJogador().size() + "   " + jogador2.getCartasJogador().size());
 
 			jogador1.getCartasJogador().remove(pJ1);
 
@@ -323,53 +406,8 @@ public class Partida {
 		System.out.println(jogador1.getNome() + " Pontos: " + jogador1.getPontos() + " \n" + jogador2.getNome()
 				+ " Pontos: " + jogador2.getPontos());
 	}
-	
-	public boolean temAsNoBaralho() {
 
-		for (int i = 0; i < baralho.getCartas().size(); i++) {
-			if (baralho.getCartas().get(i).getNipe() == cartaNipe.getNipe()
-					&& baralho.getCartas().get(i).getFaces() == "As") {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean temSeteNoBaralho() {
 
-		for (int i = 0; i < baralho.getCartas().size(); i++) {
-			if (baralho.getCartas().get(i).getNipe() == cartaNipe.getNipe()
-					&& baralho.getCartas().get(i).getFaces() == "7") {
-				System.out.println(i + " " + baralho.getCartas().get(i));
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean temAsNasCartasOponete(Jogador j) {
-
-		for (int i = 0; i < j.getCartasJogador().size(); i++) {
-			if (jogador1.getCartasJogador().get(i).getNipe() == cartaNipe.getNipe()
-					&& jogador1.getCartasJogador().get(i).getFaces() == "As") {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean temSeteNasCartasOponete(JogadorTeste j) {
-
-		for (int i = 0; i < j.getCartasJogador().size(); i++) {
-			if (j.getCartasJogador().get(i).getNipe() == cartaNipe.getNipe()
-					&& j.getCartasJogador().get(i).getFaces() == "7") {
-				System.out.println(i + " " + j.getCartasJogador().get(i));
-				return true;
-			}
-
-		}
-		return false;
-	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);

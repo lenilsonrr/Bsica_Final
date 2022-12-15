@@ -105,8 +105,9 @@ public class Partida {
 
 	public void regraSeteDeRoda(Jogador j, int n, Jogador j2, int n2) {
 		if (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
-				&& j.getCartasJogador().get(n).getFaces() == "7" && j2.getCartasJogador().get(n2).getFaces() != "As"
-				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe()) {
+				&& j.getCartasJogador().get(n).getFaces() == "7" 
+				&& j2.getCartasJogador().get(n2).getFaces() != "As"
+				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe() && baralho.getCartas().size()==34) {
 			System.out.println("Sete na primeira rodada ja é um ponto");
 		}
 	}
@@ -121,6 +122,8 @@ public class Partida {
 			n = sc.nextInt();
 			if (j.getNome() == jogador1.getNome()) {
 				setpJ1(n);
+			}else {
+				
 			}
 		}
 

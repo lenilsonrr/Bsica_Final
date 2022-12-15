@@ -334,6 +334,18 @@ public class Partida {
 		}
 		return false;
 	}
+	
+	public boolean temSeteNoBaralho() {
+
+		for (int i = 0; i < baralho.getCartas().size(); i++) {
+			if (baralho.getCartas().get(i).getNipe() == cartaNipe.getNipe()
+					&& baralho.getCartas().get(i).getFaces() == "7") {
+				System.out.println(i + " " + baralho.getCartas().get(i));
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);

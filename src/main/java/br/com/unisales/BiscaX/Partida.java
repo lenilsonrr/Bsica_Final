@@ -2,7 +2,6 @@ package br.com.unisales.BiscaX;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Partida {
@@ -65,7 +64,7 @@ public class Partida {
 	public void setpJ2(int pJ2) {
 		this.pJ2 = pJ2;
 	}
-	
+
 	// Adicinonando jogadores
 
 	public void addJogadores() {
@@ -102,6 +101,49 @@ public class Partida {
 			}
 		}
 
+	}
+
+	public void regraSeteDeRoda(Jogador j, int n, Jogador j2, int n2) {
+		if (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
+				&& j.getCartasJogador().get(n).getFaces() == "7" && j2.getCartasJogador().get(n2).getFaces() != "As"
+				&& j2.getCartasJogador().get(n2).getNipe() != cartaNipe.getNipe()) {
+			System.out.println("Sete na primeira rodada ja é um ponto");
+		}
+	}
+
+	public void regraAsNaoSaiAntesDoSete(Jogador j, int n) {
+		while (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
+				&& j.getCartasJogador().get(n).getFaces() == "As" && j.getCartasJogador().size() > 0) {
+			System.out.println("\n\n******");
+			System.out.println("essa nao*** ESTAMOS AQUI **\nEscolha outra: ");
+			System.out.print("\n" + j);
+			System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+			n = sc.nextInt();
+			if (j.getNome() == jogador1.getNome()) {
+				setpJ1(n);
+			}
+		}
+
+	}
+
+	public void regraSeteNaoPodeSairDeFundoSoNaUltimaRodada(Jogador j, int n) {
+		while (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
+				&& j.getCartasJogador().get(n).getFaces() == "7") {
+
+			System.out.println("\n\n******");
+			System.out.println("Essa Carta no pode ser solta de fundo só pode nessa condição na ultima rodada");
+			System.out.println();
+			System.out.println("essa nao\nEscolha outra: ");
+			System.out.print("\n" + j);
+			System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
+			n = sc.nextInt() - 1;
+			if (j.getNome() == jogador1.getNome()) {
+
+				System.out.print(jogador1.getNome());
+				setpJ1(n);
+			}
+
+		}
 	}
 
 	public void regraMesmoNipeSemSerTrunfo(Jogador j1, int n1, Jogador j2, int n2) {
@@ -188,10 +230,6 @@ public class Partida {
 	}
 
 	public void rodadas() {
-		Random rand = new Random();
-		String jogadorDaVez = "vez";
-		int pJ1 = 0;
-		int pJ2 = 0;
 
 		for (int i = 0; i < 17; i++) {
 
@@ -206,6 +244,7 @@ public class Partida {
 				System.out.println(getJogador1().getCartasJogador().get(pJ1) + "    X \n"
 						+ getJogador2().getCartasJogador().get(pJ2));
 
+				regraSeteDeRoda(jogador1, pJ1, jogador2, pJ2);
 				regraMesmoNipeSemSerTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartaTrunfoEOutraNaoTrunfo(jogador1, pJ1, jogador2, pJ2);
 				regraCartasMesmoNipeTrunfo(jogador1, pJ1, jogador2, pJ2);
@@ -280,48 +319,6 @@ public class Partida {
 		}
 		System.out.println(jogador1.getNome() + " Pontos: " + jogador1.getPontos() + " \n" + jogador2.getNome()
 				+ " Pontos: " + jogador2.getPontos());
-	}
-	
-	public void regraAsNaoSaiAntesDoSete(Jogador j, int n) {
-		while (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
-				&& j.getCartasJogador().get(n).getFaces() == "As" && j.getCartasJogador().size() > 0) {
-			System.out.println("\n\n******");
-			System.out.println("essa nao*** ESTAMOS AQUI **\nEscolha outra: ");
-			System.out.print("\n" + j);
-			System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
-			n = sc.nextInt();
-			if (j.getNome() == jogador1.getNome()) {
-				setpJ1(n);
-			}
-		}
-
-	}
-	
-	public void regraSeteDeRoda(Jogador j, int n) {
-		if (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
-				&& j.getCartasJogador().get(n).getFaces() == "7") {
-			System.out.println("Sete na primeira rodada ja é um ponto");
-		}
-	}
-	
-	public void regraSeteNaoPodeSairDeFundoSoNaUltimaRodada(Jogador j, int n) {
-		while (j.getCartasJogador().get(n).getNipe() == cartaNipe.getNipe()
-				&& j.getCartasJogador().get(n).getFaces() == "7") {
-			
-				System.out.println("\n\n******");
-				System.out.println("Essa Carta no pode ser solta de fundo só pode nessa condição na ultima rodada");
-				System.out.println();
-				System.out.println("essa nao\nEscolha outra: ");
-				System.out.print("\n" + j);
-				System.out.println("\nTrunfo: " + cartaNipe + "Nipe: " + cartaNipe.getNipe() + "\n");
-				n = sc.nextInt() - 1;
-				if (j.getNome() == jogador1.getNome()) {
-
-					System.out.print(jogador1.getNome());
-					setpJ1(n);
-				}
-				
-		}
 	}
 
 	public void resetarJogo() {

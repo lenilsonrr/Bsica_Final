@@ -357,6 +357,19 @@ public class Partida {
 		}
 		return false;
 	}
+	
+	public boolean temSeteNasCartasOponete(JogadorTeste j) {
+
+		for (int i = 0; i < j.getCartasJogador().size(); i++) {
+			if (j.getCartasJogador().get(i).getNipe() == cartaNipe.getNipe()
+					&& j.getCartasJogador().get(i).getFaces() == "7") {
+				System.out.println(i + " " + j.getCartasJogador().get(i));
+				return true;
+			}
+
+		}
+		return false;
+	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);

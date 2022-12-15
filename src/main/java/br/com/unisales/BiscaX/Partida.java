@@ -323,6 +323,17 @@ public class Partida {
 		System.out.println(jogador1.getNome() + " Pontos: " + jogador1.getPontos() + " \n" + jogador2.getNome()
 				+ " Pontos: " + jogador2.getPontos());
 	}
+	
+	public boolean temAsNoBaralho() {
+
+		for (int i = 0; i < baralho.getCartas().size(); i++) {
+			if (baralho.getCartas().get(i).getNipe() == cartaNipe.getNipe()
+					&& baralho.getCartas().get(i).getFaces() == "As") {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void resetarJogo() {
 		getJogador1().setPontos(0);
